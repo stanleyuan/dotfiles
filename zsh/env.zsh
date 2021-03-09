@@ -20,6 +20,7 @@ export PATH=${PATH}:${JAVA_HOME}
 export GEM_HOME="~/.gem/ruby/2.5.0/"
 export PATH="$PATH:$GEM_HOME"
 export PATH="$PATH:${HOME}/Tools/Sonar/sonar-scanner-4.0.0.1744-linux/bin"
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export WORKON_HOME=$HOME/.virtualenvs
 export CODIMD_SERVER='127.0.0.1:3000'
 # added by Anaconda3 installer
@@ -31,6 +32,12 @@ export LS_COLORS='no=00:fi=00:di=34:ow=34;40:ln=35:pi=30;44:so=35;44:do=35;44:bd
 if [ -d $HOME/Library/Python/3.7/bin ]; then
     export PATH=$HOME/Library/Python/3.7/bin:$PATH
 fi
+
+
+# SSH agent
+eval `ssh-agent -s`
+ssh-add ~/.ssh/aws/ec2/ec2.pem
+ssh-add ~/.ssh/aws/ec2/shihtiy-share-ami.pem
 
 
 #export PATH=${PATH}:${HOME}/Documents/NTUT/Learning_Project/idea-IU-182.4892.20/bin

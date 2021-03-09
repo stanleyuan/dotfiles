@@ -42,3 +42,9 @@ fi
 [[ -s /home/shihtiy/.autojump/etc/profile.d/autojump.sh ]] && source /home/shihtiy/.autojump/etc/profile.d/autojump.sh
 
 fpath=(${HOME}/.zsh.d/ $fpath)
+
+autoload -U promptinit; promptinit
+
+PURE_PROMPT_SYMBOL="$"
+
+prompt pure

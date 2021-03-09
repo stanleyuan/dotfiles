@@ -207,6 +207,11 @@ install-ubuntu:
 	sudo apt-get update -y
 	sudo apt upgrade -y
 
+	if [ "${HOME}" = "/root" ]; then \
+		sudo apt-get -y install python3*; \
+		sudo apt install python3-pip -y;
+	fi
+
 	# zsh
 	sudo apt install zsh -y
 	sudo apt-get install powerline fonts-powerline -y
@@ -233,12 +238,12 @@ install-ubuntu:
 	fi
 
 	# bash-it
-	if [ ! -d ${HOME}/.bash_it ]; then \
-		git clone --depth=1 https://github.com/Bash-it/bash-it.git ${HOME}/.bash_it; \
-	fi
+	#if [ ! -d ${HOME}/.bash_it ]; then \
+		#git clone --depth=1 https://github.com/Bash-it/bash-it.git ${HOME}/.bash_it; \
+	#fi
 
-	${HOME}/bash_it/install.sh --slient
-	mkdir -p ${HOME}/.bash_it/custom/themes
+	#${HOME}/bash_it/install.sh --slient
+	#mkdir -p ${HOME}/.bash_it/custom/themes
 
 	# tmux
 	sudo apt install tmux -y
@@ -253,24 +258,27 @@ install-ubuntu:
 	sudo npm install -g markdownlint-cli
 
 	# neovim
-	sudo apt-get install python3-neovim -y
-	nmp install -g neovim
 	pip3 install pynvim --user
-	sudo apt install build-essential cmake python3-dev -y
 	wget https://github.com/neovim/neovim/releases/download/v0.3.8/nvim.appimage
 	chmod u+x nvim.appimage
+	./nvim.appimage --appimage-extract
 	sudo rm /usr/bin/nvim
-	sudo ln -s ${HOME}/dotfiles/nvim.appimage /usr/bin/nvim
+	#sudo ln -s ${HOME}/dotfiles/nvim.appimage /usr/bin/nvim
+	sudo ln -sf ${HOME}/dotfiles/squashfs-root/usr/bin/nvim /usr/bin/nvim
+	sudo ln -sf ${HOME}/dotfiles/git/diff-so-fancy.sh /usr/local/bin/diff-so-fancy
 
-	git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf
-	${HOME}/.fzf/install
+	if [ ! -d ${HOMW}/.fzf ]; then\
+		git clone --depth 1 https://github.com/junegunn/fzf.git ${HOME}/.fzf; \
+		yes | ${HOME}/.fzf/install; \
+	fi
 
 	mkdir -p ${HOME}/.local/share/bin
 	curl https://beyondgrep.com/ack-v3.1.2 > ${HOME}/.local/share/bin/ack && chmod 0755 ${HOME}/.local/share/bin/ack
 
-	if [ ! -d ./autojump ]; then \
-		git clone git://github.com/joelthelion/autojump.git; \
-		python3 ${HOME}/.autojump/install.py; \
+	if [ ! -d ${HOME}/dotfiles/autojump ]; then \
+		git clone git://github.com/joelthelion/autojump.git ${HOME}/dotfiles/autojump; \
+		cd ${HOME}/dotfiles/autojump/; \
+		python3 ${HOME}/dotfiles/autojump/install.py; \
 	fi
 
 init:
