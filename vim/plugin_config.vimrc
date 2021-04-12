@@ -614,3 +614,16 @@ let g:tmuxcomplete#asyncomplete_source_options = {
             \     'truncate':        0
             \     }
             \ }
+
+
+"                  _) |     |
+"   _` | __ \   __| | __ \  |  _ \
+"  (   | |   |\__ \ | |   | |  __/
+" \__,_|_|  _|____/_|_.__/ _|\___|
+"
+" ansible
+
+let g:ansible_attribute_highlight = "ob"
+let g:ansible_name_highlight = 'd'
+"let g:ansible_yamlKeyName = 'yamlKey'
+let g:ansible_extra_keywords_highlight = 1

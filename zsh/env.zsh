@@ -17,6 +17,10 @@ export PATH=${PATH}:${HOME}/.cargo/bin
 export PATH=${PATH}:${HOME}/Tools/codimd-cli/bin
 export PATH=${PATH}:${HOME}/arduino-1.8.8
 export PATH=${PATH}:${JAVA_HOME}
+export PATH=${PATH}:/opt/terraform
+export PATH=${PATH}:${HOME}/Tools/apache-maven-3.6.3/bin
+export PATH="${PATH}:${HOME}/.ebcli-virtual-env/executables"
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 export GEM_HOME="~/.gem/ruby/2.5.0/"
 export PATH="$PATH:$GEM_HOME"
 export PATH="$PATH:${HOME}/Tools/Sonar/sonar-scanner-4.0.0.1744-linux/bin"
@@ -45,3 +49,24 @@ fi
 #export PATH=/usr/local/cuda-8.0/bin:$PATH
 #export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH1
 
+# brew
+test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
+echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
+
+
+#If you need to have python@3.7 first in your PATH run:
+# echo 'export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.7/bin:$PATH"' >> ~/.zshrc
+
+#For compilers to find python@3.7 you may need to set:
+export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/python@3.7/lib"
+export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/python@3.7/include"
+
+#For pkg-config to find python@3.7 you may need to set:
+export PKG_CONFIG_PATH="/home/linuxbrew/.linuxbrew/opt/python@3.7/lib/pkgconfig"
+
+# $ sudo apt-get install libpython3.7-dev
+
+# source command not found suggestion
+source /etc/zsh_command_not_found

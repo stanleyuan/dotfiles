@@ -136,6 +136,7 @@ Plug 'junegunn/vader.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
 Plug 'hashivim/vim-terraform'
+Plug 'pearofducks/ansible-vim'
 "Plug 'Valloric/YouCompleteMe',{
             "\ 'do': 'python3 install.py --go-completer --ts-completer --java-completer --clang-completer',
             "\ 'for': ['javascript', 'c', 'cpp', 'python', 'go']}

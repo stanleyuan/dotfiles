@@ -118,8 +118,7 @@
     "efm": {
       "command": "efm-langserver",
       "args": [],
-      // custom config path
-      // "args": ["-c", "/path/to/your/config.yaml"],
+      "args": ["-c", "/home/shihtiy/.config/efm-langserver/config.yaml"],
       "filetypes": [
         "vim",
         "eruby",

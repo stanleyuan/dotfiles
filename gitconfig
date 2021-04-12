@@ -1,6 +1,5 @@
 [user]
-	name = stanleyuan
-	email = stanley830912@gmail.com
+	name = shihtiy
 
 [alias]
 	a = add
@@ -26,7 +25,7 @@
 	default = simple
 
 [github]
-	user = stanleyuan
+	user = shihtiy
 [http]
 	sslCAinfo = /etc/ssl/certs/ca-certificates.crt
 	sslverify = false

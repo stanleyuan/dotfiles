@@ -62,7 +62,9 @@ ZSH_THEME="spaceship"
 plugins=(
   git
   docker
-  #django
+  # kubectl
+  virtualenv
+  django
   aws
   #colorize
   #command-not-found
@@ -75,7 +77,7 @@ plugins=(
   #fast-syntax-highlighting
   #fzf-git
   #hacker-quotes
-  #kube-ps1
+  kube-ps1
   #ls
   #web-search
   autojump

@@ -1,0 +1,394 @@
+#compdef _copilot copilot
+
+
+function _copilot {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "init:Create a new ECS application."
+      "docs:Open the copilot docs."
+      "app:Commands for applications.
+Applications are a collection of services and environments."
+      "env:Commands for environments.
+Environments are deployment stages shared between services."
+      "svc:Commands for services.
+Services are long-running Amazon ECS services."
+      "version:Print the version number."
+      "completion:Output shell completion code."
+      "pipeline:Commands for pipelines.
+Continuous delivery pipelines to release services."
+      "deploy:Deploy your service."
+      "help:Help about any command"
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  init)
+    _copilot_init
+    ;;
+  docs)
+    _copilot_docs
+    ;;
+  app)
+    _copilot_app
+    ;;
+  env)
+    _copilot_env
+    ;;
+  svc)
+    _copilot_svc
+    ;;
+  version)
+    _copilot_version
+    ;;
+  completion)
+    _copilot_completion
+    ;;
+  pipeline)
+    _copilot_pipeline
+    ;;
+  deploy)
+    _copilot_deploy
+    ;;
+  help)
+    _copilot_help
+    ;;
+  esac
+}
+
+function _copilot_init {
+  _arguments \
+    '(-a --app)'{-a,--app}'[Name of the application.]:' \
+    '--deploy[Deploy your service to a "test" environment.]' \
+    '(-d --dockerfile)'{-d,--dockerfile}'[Path to the Dockerfile.]:' \
+    '--port[Optional. The port on which your service listens.]:' \
+    '--profile[Name of the profile.]:' \
+    '(-s --svc)'{-s,--svc}'[Name of the service.]:' \
+    '(-t --svc-type)'{-t,--svc-type}'[Type of service to create. Must be one of:
+"Load Balanced Web Service", "Backend Service"]:' \
+    '--tag[Optional. The service'\''s image tag.]:'
+}
+
+function _copilot_docs {
+  _arguments
+}
+
+
+function _copilot_app {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "init:Creates a new empty application."
+      "ls:Lists all the applications in your account."
+      "show:Shows info about an application."
+      "delete:Delete all resources associated with the application."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  init)
+    _copilot_app_init
+    ;;
+  ls)
+    _copilot_app_ls
+    ;;
+  show)
+    _copilot_app_show
+    ;;
+  delete)
+    _copilot_app_delete
+    ;;
+  esac
+}
+
+function _copilot_app_init {
+  _arguments \
+    '--domain[Optional. Your existing custom domain name.]:' \
+    '--resource-tags[Optional. Labels with a key and value separated with commas.
+Allows you to categorize resources.]:'
+}
+
+function _copilot_app_ls {
+  _arguments
+}
+
+function _copilot_app_show {
+  _arguments \
+    '--json[Optional. Outputs in JSON format.]' \
+    '(-n --name)'{-n,--name}'[Name of the application.]:'
+}
+
+function _copilot_app_delete {
+  _arguments \
+    '--env-profiles[Optional. Environments and the profile to use to delete the environment.]:' \
+    '--yes[Skips confirmation prompt.]'
+}
+
+
+function _copilot_env {
+  local -a commands
+
+  _arguments -C \
+    '(-a --app)'{-a,--app}'[Name of the application.]:' \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "init:Creates a new environment in your application."
+      "ls:Lists all the environments in an application."
+      "delete:Deletes an environment from your application."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  init)
+    _copilot_env_init
+    ;;
+  ls)
+    _copilot_env_ls
+    ;;
+  delete)
+    _copilot_env_delete
+    ;;
+  esac
+}
+
+function _copilot_env_init {
+  _arguments \
+    '(-n --name)'{-n,--name}'[Name of the environment.]:' \
+    '--prod[If the environment contains production services.]' \
+    '--profile[Name of the profile.]:' \
+    '(-a --app)'{-a,--app}'[Name of the application.]:'
+}
+
+function _copilot_env_ls {
+  _arguments \
+    '--json[Optional. Outputs in JSON format.]' \
+    '(-a --app)'{-a,--app}'[Name of the application.]:'
+}
+
+function _copilot_env_delete {
+  _arguments \
+    '(-n --name)'{-n,--name}'[Name of the environment.]:' \
+    '--profile[Name of the profile.]:' \
+    '--yes[Skips confirmation prompt.]' \
+    '(-a --app)'{-a,--app}'[Name of the application.]:'
+}
+
+
+function _copilot_svc {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "init:Creates a new service in an application."
+      "ls:Lists all the services in an application."
+      "package:Prints the AWS CloudFormation template of a service."
+      "deploy:Deploys a service to an environment."
+      "delete:Deletes a service from an application."
+      "show:Shows info about a deployed service per environment."
+      "status:Shows status of a deployed service."
+      "logs:Displays logs of a deployed service."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  init)
+    _copilot_svc_init
+    ;;
+  ls)
+    _copilot_svc_ls
+    ;;
+  package)
+    _copilot_svc_package
+    ;;
+  deploy)
+    _copilot_svc_deploy
+    ;;
+  delete)
+    _copilot_svc_delete
+    ;;
+  show)
+    _copilot_svc_show
+    ;;
+  status)
+    _copilot_svc_status
+    ;;
+  logs)
+    _copilot_svc_logs
+    ;;
+  esac
+}
+
+function _copilot_svc_init {
+  _arguments \
+    '(-d --dockerfile)'{-d,--dockerfile}'[Path to the Dockerfile.]:' \
+    '(-n --name)'{-n,--name}'[Name of the service.]:' \
+    '--port[Optional. The port on which your service listens.]:' \
+    '(-t --svc-type)'{-t,--svc-type}'[Type of service to create. Must be one of:
+"Load Balanced Web Service", "Backend Service"]:'
+}
+
+function _copilot_svc_ls {
+  _arguments \
+    '(-a --app)'{-a,--app}'[Name of the application.]:' \
+    '--json[Optional. Outputs in JSON format.]' \
+    '--local[Only show services in the workspace.]'
+}
+
+function _copilot_svc_package {
+  _arguments \
+    '(-e --env)'{-e,--env}'[Name of the environment.]:' \
+    '(-n --name)'{-n,--name}'[Name of the service.]:' \
+    '--output-dir[Optional. Writes the stack template and template configuration to a directory.]:' \
+    '--tag[Optional. The service'\''s image tag.]:'
+}
+
+function _copilot_svc_deploy {
+  _arguments \
+    '(-e --env)'{-e,--env}'[Name of the environment.]:' \
+    '(-n --name)'{-n,--name}'[Name of the service.]:' \
+    '--resource-tags[Optional. Labels with a key and value separated with commas.
+Allows you to categorize resources.]:' \
+    '--tag[Optional. The service'\''s image tag.]:'
+}
+
+function _copilot_svc_delete {
+  _arguments \
+    '(-e --env)'{-e,--env}'[Name of the environment.]:' \
+    '(-n --name)'{-n,--name}'[Name of the service.]:' \
+    '--yes[Skips confirmation prompt.]'
+}
+
+function _copilot_svc_show {
+  _arguments \
+    '(-a --app)'{-a,--app}'[Name of the application.]:' \
+    '--json[Optional. Outputs in JSON format.]' \
+    '(-n --name)'{-n,--name}'[Name of the service.]:' \
+    '--resources[Optional. Show the resources in your service.]'
+}
+
+function _copilot_svc_status {
+  _arguments \
+    '(-a --app)'{-a,--app}'[Name of the application.]:' \
+    '(-e --env)'{-e,--env}'[Name of the environment.]:' \
+    '--json[Optional. Outputs in JSON format.]' \
+    '(-n --name)'{-n,--name}'[Name of the service.]:'
+}
+
+function _copilot_svc_logs {
+  _arguments \
+    '(-a --app)'{-a,--app}'[Name of the application.]:' \
+    '--end-time[Optional. Only return logs before a specific date (RFC3339).
+Defaults to all logs. Only one of end-time / follow may be used.]:' \
+    '(-e --env)'{-e,--env}'[Name of the environment.]:' \
+    '--follow[Optional. Specifies if the logs should be streamed.]' \
+    '--json[Optional. Outputs in JSON format.]' \
+    '--limit[Optional. The maximum number of log events returned.]:' \
+    '(-n --name)'{-n,--name}'[Name of the service.]:' \
+    '--since[Optional. Only return logs newer than a relative duration like 5s, 2m, or 3h.
+Defaults to all logs. Only one of start-time / since may be used.]:' \
+    '--start-time[Optional. Only return logs after a specific date (RFC3339).
+Defaults to all logs. Only one of start-time / since may be used.]:'
+}
+
+function _copilot_version {
+  _arguments
+}
+
+function _copilot_completion {
+  _arguments \
+    '(-h --help)'{-h,--help}'[help for completion]'
+}
+
+
+function _copilot_pipeline {
+  local -a commands
+
+  _arguments -C \
+    "1: :->cmnds" \
+    "*::arg:->args"
+
+  case $state in
+  cmnds)
+    commands=(
+      "init:Creates a pipeline for the services in your workspace."
+      "update:Deploys a pipeline for the services in your workspace."
+      "delete:Deletes the pipeline associated with your workspace."
+    )
+    _describe "command" commands
+    ;;
+  esac
+
+  case "$words[1]" in
+  init)
+    _copilot_pipeline_init
+    ;;
+  update)
+    _copilot_pipeline_update
+    ;;
+  delete)
+    _copilot_pipeline_delete
+    ;;
+  esac
+}
+
+function _copilot_pipeline_init {
+  _arguments \
+    '(*-e *--environments)'{\*-e,\*--environments}'[Environments to add to the pipeline.]:' \
+    '(-b --git-branch)'{-b,--git-branch}'[Branch used to trigger your pipeline.]:' \
+    '(-t --github-access-token)'{-t,--github-access-token}'[GitHub personal access token for your repository.]:' \
+    '(-u --github-url)'{-u,--github-url}'[GitHub repository URL for your service.]:'
+}
+
+function _copilot_pipeline_update {
+  _arguments \
+    '--yes[Skips confirmation prompt.]'
+}
+
+function _copilot_pipeline_delete {
+  _arguments \
+    '--delete-secret[Deletes AWS Secrets Manager secret associated with a pipeline source repository.]' \
+    '--yes[Skips confirmation prompt.]'
+}
+
+function _copilot_deploy {
+  _arguments \
+    '(-e --env)'{-e,--env}'[Name of the environment.]:' \
+    '(-n --name)'{-n,--name}'[Name of the service.]:' \
+    '--resource-tags[Optional. Labels with a key and value separated with commas.
+Allows you to categorize resources.]:' \
+    '--tag[Optional. The service'\''s image tag.]:'
+}
+
+function _copilot_help {
+  _arguments
+}
+

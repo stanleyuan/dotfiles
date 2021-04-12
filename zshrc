@@ -10,21 +10,27 @@ export DOTFILE="${HOME}/dotfiles"
 # Load Antigen configurations
 #antigen init $HOME/.antigenrc
 #source $HOME/.antigenrc
+#
 
 source $HOME/dotfiles/zsh/omzsh.zsh
 
-# user config
-source $HOME/dotfiles/zsh/config.zsh
+# https://github.com/Aloxaf/fzf-tab
+# $ git clone https://github.com/Aloxaf/fzf-tab ~/Tools/fzf-tab
+source ${HOME}/Tools/fzf-tab/fzf-tab.plugin.zsh
 
 # alias
 source $HOME/dotfiles/zsh/alias.zsh
 
+# completions
+source $HOME/dotfiles/zsh/completion.zsh
+
+
+# user config
+source $HOME/dotfiles/zsh/config.zsh
+
 #source /etc/zsh_command_not_found
 #source $HOME/.local/bin/aws_bash_completer
 [ -f ${HOME}/.fzf.zsh ] && source ${HOME}/.fzf.zsh
-
-# completions
-source $HOME/dotfiles/zsh/completion.zsh
 
 # function
 source $HOME/dotfiles/zsh/function.zsh
@@ -42,3 +48,6 @@ fi
 [[ -s /home/shihtiy/.autojump/etc/profile.d/autojump.sh ]] && source /home/shihtiy/.autojump/etc/profile.d/autojump.sh
 
 fpath=(${HOME}/.zsh.d/ $fpath)
+alias bd=". bd -si"
+export PATH="/home/linuxbrew/.linuxbrew/opt/python@3.7/bin:$PATH"
+
